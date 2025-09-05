@@ -25,17 +25,10 @@ namespace GrokkingAlgorithms.Algorithm
                 int temp = array[minIndex];
                 array[minIndex] = array[i];
                 array[i] = temp;
+
+                Console.WriteLine("Array state: " + string.Join(", ", array));
             }
             return array;
-        }
-
-        public static void Run()
-        {
-            int[] array = { 64, 25, 12, 22, 11 };
-            Console.WriteLine("Unsorted array: " + string.Join(" ", array));
-
-            int[] sorted = SelectionSort.Sort(array);
-            Console.WriteLine("Sorted array: " + string.Join(" ", sorted));
         }
     }
 }

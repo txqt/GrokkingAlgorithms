@@ -26,6 +26,7 @@ public class BinarySearch
             {
                 right = mid - 1;
             }
+            Console.WriteLine($"Left: {left}, Right: {right}, Mid: {mid}");
         }
         return -1;
     }
@@ -43,27 +44,5 @@ public class BinarySearch
             return Search(arr, target, left, mid - 1);
         else
             return Search(arr, target, mid + 1, right);
-    }
-
-    public static void Run()
-    {
-        int[] array = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
-        Console.WriteLine("Array: " + string.Join(" ", array));
-
-        Console.Write("Enter a number to search for: ");
-        var input = Console.ReadLine();
-
-        while (input != null && !int.TryParse(input, out _))
-        {
-            Console.Write("Invalid input. Enter a number: ");
-            input = Console.ReadLine();
-        }
-
-        int target = int.Parse(input!);
-        int result = BinarySearch.Search(array, target);
-
-        Console.WriteLine(result != -1
-            ? $"Number found at index {result}."
-            : "Number not found in the array.");
     }
 }

@@ -40,12 +40,29 @@ public class Program
             })
             .AddExit("Back");
 
+        // Submenu for Quick Sort
+        var quickSortMenu = new MenuBuilder()
+            .Title("Quick Sort")
+            .Add("Run Quick Sort", () =>
+            {
+                int[] array = { 64, 25, 12, 22, 11 };
+                Console.WriteLine("Unsorted array:");
+                foreach (var num in array) Console.Write(num + " ");
+                Console.WriteLine();
+                int[] sortedArray = QuickSort.Sort(array, 0, array.Length - 1);
+                Console.WriteLine("Sorted array:");
+                foreach (var num in sortedArray) Console.Write(num + " ");
+                Console.WriteLine();
+            })
+            .AddExit("Back");
+
         // Main menu
         var mainMenu = new MenuBuilder()
             .Title("Main Menu")
             .AddSubMenu("Binary Search", binarySearchMenu)
             .AddSubMenu("Selection Sort", selectionSortMenu)
             .AddSubMenu("Recursion", recursionMenu)
+            .AddSubMenu("Quick Sort", quickSortMenu)
             .AddExit("Exit");
 
         mainMenu.Show();
