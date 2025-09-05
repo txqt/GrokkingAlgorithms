@@ -1,44 +1,54 @@
-﻿using GrokkingAlgorithms;
+﻿using GrokkingAlgorithms.Algorithm;
+using GrokkingAlgorithms.ConsoleMenus;
+using System;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        while (true)
-        {
-            Console.WriteLine("Menu:");
-            Console.WriteLine("1. Binary Search");
-            Console.WriteLine("2. Selection Sort");
-            Console.WriteLine("3. Recursion");
-            Console.WriteLine("2. Exit");
-            Console.Write("Choose an option: ");
+        // Submenu for Binary Search
+        var binarySearchMenu = new MenuBuilder()
+            .Title("Binary Search")
+            .Add("Run Binary Search", RunBinarySearch)
+            .Add("Run Binary Search Recursive", RunBinarySearchRecursive)
+            .AddExit("Back");
 
-            var choice = Console.ReadLine();
+        // Submenu for Selection Sort
+        var selectionSortMenu = new MenuBuilder()
+            .Title("Selection Sort")
+            .Add("Run Selection Sort", RunSelectionSort)
+            .AddExit("Back");
 
-            CheckIsValidInput(choice);
-
-            switch (choice)
+        // Submenu for Recursion
+        var recursionMenu = new MenuBuilder()
+            .Title("Recursion")
+            .Add("Countdown", () => Recursion.Countdown(5))
+            .Add("Sum of array", () =>
             {
-                case "1":
-                    Console.WriteLine("Binary Search Selected.");
-                    RunBinarySearch();
-                    break;
-                case "2":
-                    Console.WriteLine("Selection Sort Selected.");
-                    RunSelectionSort();
-                    break;
-                case "3":
-                    Console.WriteLine("Recursion Selected.");
-                    RunRecursion();
-                    break;
-                case "0":
-                    Console.WriteLine("Exiting...");
-                    return;
-                default:
-                    Console.WriteLine("Invalid choice. Please try again.");
-                    break;
-            }
-        }
+                int[] array = { 1, 2, 3, 4, 5 };
+                Console.WriteLine($"Sum = {new Recursion().SumRecursive(array)}");
+            })
+            .Add("Count elements", () =>
+            {
+                int[] array = { 1, 2, 3, 4, 5 };
+                Console.WriteLine($"Count = {Recursion.CountRecursive(array)}");
+            })
+            .Add("Max element", () =>
+            {
+                int[] array = { 1, 2, 3, 4, 5 };
+                Console.WriteLine($"Max = {Recursion.MaxRecursive(array)}");
+            })
+            .AddExit("Back");
+
+        // Main menu
+        var mainMenu = new MenuBuilder()
+            .Title("Main Menu")
+            .AddSubMenu("Binary Search", binarySearchMenu)
+            .AddSubMenu("Selection Sort", selectionSortMenu)
+            .AddSubMenu("Recursion", recursionMenu)
+            .AddExit("Exit");
+
+        mainMenu.Show();
     }
 
     private static void CheckIsValidInput(string? input)
@@ -53,59 +63,54 @@ public class Program
     private static void RunBinarySearch()
     {
         int[] array = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
-        foreach (var num in array)
-        {
-            Console.Write(num + " ");
-        }
+        Console.WriteLine("Array:");
+        foreach (var num in array) Console.Write(num + " ");
         Console.WriteLine();
+
         Console.Write("Enter a number to search for: ");
         var input = Console.ReadLine();
         CheckIsValidInput(input);
+
         int target = int.Parse(input!);
         int result = BinarySearch.Search(array, target);
+
         if (result != -1)
-        {
             Console.WriteLine($"Number found at index {result}.");
-        }
         else
-        {
             Console.WriteLine("Number not found in the array.");
-        }
+    }
+
+    private static void RunBinarySearchRecursive()
+    {
+        int[] array = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
+        Console.WriteLine("Array:");
+        foreach (var num in array) Console.Write(num + " ");
+        Console.WriteLine();
+
+        Console.Write("Enter a number to search for: ");
+        var input = Console.ReadLine();
+        CheckIsValidInput(input);
+
+        int target = int.Parse(input!);
+        int result = BinarySearch.Search(array, target, 0, array.Length - 1);
+
+        if (result != -1)
+            Console.WriteLine($"Number found at index {result}.");
+        else
+            Console.WriteLine("Number not found in the array.");
     }
 
     private static void RunSelectionSort()
     {
         int[] array = { 64, 25, 12, 22, 11 };
         Console.WriteLine("Unsorted array:");
-        foreach (var num in array)
-        {
-            Console.Write(num + " ");
-        }
+        foreach (var num in array) Console.Write(num + " ");
         Console.WriteLine();
-        int[] sortedArray = SelectionSort.Sort(array);
-        Console.WriteLine("Sorted array:");
-        foreach (var num in sortedArray)
-        {
-            Console.Write(num + " ");
-        }
-        Console.WriteLine();
-    }
 
-    private static void RunRecursion()
-    {
-        int[] array = { 1, 2, 3, 4, 5 };
-        Console.WriteLine("Array elements:");
-        foreach (var num in array)
-        {
-            Console.Write(num + " ");
-        }
+        int[] sortedArray = SelectionSort.Sort(array);
+
+        Console.WriteLine("Sorted array:");
+        foreach (var num in sortedArray) Console.Write(num + " ");
         Console.WriteLine();
-        Recursion.Countdown(5);
-        int sum = new Recursion().SumRecursive(array);
-        int count = Recursion.CountRecursive(array);
-        int max = Recursion.MaxRecursive(array);
-        Console.WriteLine($"Sum of array elements: {sum}");
-        Console.WriteLine($"Count of array elements: {count}");
-        Console.WriteLine($"Max of array elements: {max}");
     }
 }

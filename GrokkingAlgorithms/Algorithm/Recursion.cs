@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrokkingAlgorithms
+namespace GrokkingAlgorithms.Algorithm
 {
     public class Recursion
     {

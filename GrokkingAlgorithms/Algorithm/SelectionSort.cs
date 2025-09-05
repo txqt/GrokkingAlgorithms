@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrokkingAlgorithms
+namespace GrokkingAlgorithms.Algorithm
 {
     public class SelectionSort
     {
@@ -27,6 +27,15 @@ namespace GrokkingAlgorithms
                 array[i] = temp;
             }
             return array;
+        }
+
+        public static void Run()
+        {
+            int[] array = { 64, 25, 12, 22, 11 };
+            Console.WriteLine("Unsorted array: " + string.Join(" ", array));
+
+            int[] sorted = SelectionSort.Sort(array);
+            Console.WriteLine("Sorted array: " + string.Join(" ", sorted));
         }
     }
 }
