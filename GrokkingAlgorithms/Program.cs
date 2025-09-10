@@ -56,6 +56,36 @@ public class Program
             })
             .AddExit("Back");
 
+        //Submenu for BFS
+        var bfsMenu = new MenuBuilder()
+            .Title("Breadth-First Search (BFS)")
+            .Add("Run BFS", () =>
+            {
+                var graph = new Dictionary<string, List<string>>
+                {
+                    { "you", new List<string> { "alice", "bob", "claire" } },
+                    { "bob", new List<string> { "anuj", "peggy" } },
+                    { "alice", new List<string> { "peggy" } },
+                    { "claire", new List<string> { "thom", "jonny" } },
+                    { "anuj", new List<string>() },
+                    { "peggy", new List<string>() },
+                    { "thom", new List<string>() },
+                    { "jonny", new List<string>() }
+                };
+                Console.Write("Enter the name of the person to search for: ");
+                string target = Console.ReadLine() ?? "";
+                var result = BFS.Search(graph, "you", target);
+                if (result == null)
+                {
+                    Console.WriteLine($"{target} not found in the network.");
+                }
+                else
+                {
+                    Console.WriteLine("Search complete.");
+                }
+            })
+            .AddExit("Back");
+
         // Main menu
         var mainMenu = new MenuBuilder()
             .Title("Main Menu")
@@ -63,6 +93,7 @@ public class Program
             .AddSubMenu("Selection Sort", selectionSortMenu)
             .AddSubMenu("Recursion", recursionMenu)
             .AddSubMenu("Quick Sort", quickSortMenu)
+            .AddSubMenu("Breadth-First Search (BFS)", bfsMenu)
             .AddExit("Exit");
 
         mainMenu.Show();
